@@ -109,9 +109,10 @@
     {{ 'labels.menus.Clients' | translate }}
   </button>
   <button mat-menu-item [routerLink]="['/reports', 'Loan']" tabindex="0">{{ 'labels.menus.Loans' | translate }}</button>
-  <button mat-menu-item [routerLink]="['/reports', 'Savings']" tabindex="0">
+  <!-- Savings reports disabled -->
+  <!-- <button mat-menu-item [routerLink]="['/reports', 'Savings']" tabindex="0">
     {{ 'labels.menus.Savings' | translate }}
-  </button>
+  </button> -->
   <button mat-menu-item [routerLink]="['/reports', 'Fund']" tabindex="0">{{ 'labels.menus.Funds' | translate }}</button>
   <button mat-menu-item [routerLink]="['/reports', 'Accounting']" tabindex="0">
     {{ 'labels.menus.Accounting' | translate }}

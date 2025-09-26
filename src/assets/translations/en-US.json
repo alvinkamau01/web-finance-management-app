@@ -1,5 +1,5 @@
 {
-  "APP_NAME": "Mifos X",
+  "APP_NAME": "orion",
   "Logged in as": "Logged in as",
   "Remember me": "Remember me",
   "errors": {
@@ -2689,7 +2689,7 @@
       "the Transaction Type": "the Transaction Type"
     },
     "text": {
-      "A": "A",
+      "A": "In partnership with",
       "Ability to manage holidays for individual offices": "The ability to manage holidays for individual offices is a very useful tool for an organization spanning multiple locations.Use this option to customize holidays for each office of your organization.",
       "Account Detail": "Account Detail",
       "Account Number Preferences": "Account Number Preferences",
@@ -3146,7 +3146,7 @@
       "Manage your Services": "Manage your Services",
       "Manual journal entry transactions recorded in a journal": "Manual journal entry transactions recorded in a journal",
       "Message Gateway": "Message Gateway",
-      "Mifos Initiative": "Mifos Initiative",
+      "Mifos Initiative": "E-Horizon Solutions",
       "Mifos X data-tables allow the user to add custom fields": "Mifos X data-tables allow the user to add custom fields in addition to the built-in fields to a client profile, loan/saving account, group, center or an office.",
       "Migrate Opening Balances": "Migrate Opening Balances",
       "Modify Loans Account": "Modify Loans Account",
@@ -3404,8 +3404,8 @@
       "by": "by",
       "do not match": "do not match",
       "edit": "edit",
-      "elimination of poverty": "that aims to speed the elimination of poverty by enabling Organizations to more effectively and efficiently deliver responsible financial services to the world’s poor and unbanked.Sounds interesting?",
-      "global community": "global community",
+      "elimination of poverty": "that aims to more effectively and efficiently deliver responsible financial services to the African financial space in banks,saccos and banks",
+      "global community": "a global community",
       "is designed by the": "is designed by the",
       "per annum": "per annum",
       "undefined": "undefined",

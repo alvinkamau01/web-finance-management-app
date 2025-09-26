@@ -13,10 +13,11 @@
             </p>
           </td>
           <td>
-            <p>
+            <!-- Savings disabled -->
+            <!-- <p>
               {{ 'labels.inputs.No. of Active Savings' | translate }} :{{ clientSummary?.activeSavings }} <br />
               {{ 'labels.inputs.Total Savings' | translate }} :{{ clientSummary?.totalSavings | formatNumber }} <br />
-            </p>
+            </p> -->
           </td>
         </tr>
       </tbody>
@@ -297,8 +298,8 @@
     ></tr>
   </table>
 
-  <!-- Saving overview Table -->
-  <div class="heading-content">
+  <!-- Saving overview Table - Disabled -->
+  <!-- <div class="heading-content">
     <div class="layout-column flex-50">
       <div class="heading-name">
         <h3>{{ 'labels.heading.Saving Accounts' | translate }}</h3>
@@ -405,7 +406,6 @@
     ></tr>
   </table>
 
-  <!-- Closed Saving Accounts -->
   <table
     *ngIf="showClosedSavingAccounts"
     mat-table
@@ -437,10 +437,10 @@
       *matRowDef="let row; columns: closedSavingsColumns"
       [routerLink]="['../', 'savings-accounts', row.id, 'general']"
     ></tr>
-  </table>
+  </table> -->
 
-  <!-- Fixed Deposit Table -->
-  <div class="heading-content">
+  <!-- Fixed Deposit Table - Disabled -->
+  <!-- <div class="heading-content">
     <div class="layout-column flex-50">
       <div class="heading-name">
         <h3>{{ 'labels.heading.Fixed Deposit Accounts' | translate }}</h3>
@@ -525,8 +525,6 @@
     ></tr>
   </table>
 
-  <!-- Closed Fixed Deposit Accounts -->
-
   <table
     *ngIf="showClosedFixedAccounts"
     mat-table
@@ -558,10 +556,10 @@
       *matRowDef="let row; columns: closedSavingsColumns"
       [routerLink]="['../', 'fixed-deposits-accounts', row.id, 'general']"
     ></tr>
-  </table>
+  </table> -->
 
-  <!-- Recurring Deposit Table -->
-  <div class="heading-content">
+  <!-- Recurring Deposit Table - Disabled -->
+  <!-- <div class="heading-content">
     <div class="layout-column flex-50">
       <div class="heading-name">
         <h3>{{ 'labels.heading.Recurring Deposit Accounts' | translate }}</h3>
@@ -654,7 +652,6 @@
     ></tr>
   </table>
 
-  <!-- Closed Recurring Deposit Accounts -->
   <table
     *ngIf="showClosedRecurringAccounts"
     mat-table
@@ -687,7 +684,7 @@
       [routerLink]="['../', 'recurring-deposits-accounts', row.id, 'general']"
       class="select-row"
     ></tr>
-  </table>
+  </table> -->
 
   <!-- Shares overview Table -->
   <div class="heading-content">

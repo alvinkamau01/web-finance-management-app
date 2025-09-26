@@ -199,17 +199,18 @@
         <button mat-menu-item *mifosxHasPermission="'CREATE_LOAN'" [routerLink]="['loans-accounts', 'create']">
           {{ 'labels.buttons.New Loan Account' | translate }}
         </button>
-        <button
+        <!-- Savings, Fixed Deposit, and Recurring Deposit accounts disabled -->
+        <!-- <button
           mat-menu-item
           *mifosxHasPermission="'CREATE_SAVINGSACCOUNT'"
           [routerLink]="['savings-accounts', 'create']"
         >
           {{ 'labels.buttons.New Savings Account' | translate }}
-        </button>
+        </button> -->
         <button mat-menu-item *mifosxHasPermission="'CREATE_SHAREACCOUNT'" [routerLink]="['shares-accounts', 'create']">
           {{ 'labels.buttons.New Share Account' | translate }}
         </button>
-        <button
+        <!-- <button
           mat-menu-item
           *mifosxHasPermission="'CREATE_RECURRINGDEPOSITACCOUNT'"
           [routerLink]="['recurring-deposits-accounts', 'create-recurring-deposits-account']"
@@ -222,7 +223,7 @@
           [routerLink]="['fixed-deposits-accounts', 'create']"
         >
           {{ 'labels.buttons.New Fixed Deposits Account' | translate }}
-        </button>
+        </button> -->
       </mat-menu>
 
       <mat-menu #Actions="matMenu">

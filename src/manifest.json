@@ -1,12 +1,12 @@
 {
-  "short_name": "MifosX",
-  "name": "MifosX Web App",
+  "short_name": "orion",
+  "name": "orion Web App",
   "start_url": "/",
   "scope": "/",
   "theme_color": "#fff",
   "background_color": "#fff",
   "display": "standalone",
-  "description": "MifosX Web App is the default web application built on top of the Fineract platform for the Mifos user community leveraging the popular Angular framework.",
+  "description": "orion is a comprehensive microfinance management platform designed for SACCOs, banks, and business-focused financial institutions, providing robust tools for loan management, client operations, and financial services.",
   "icons": [
     {
       "src": "assets/images/MifosX_logo.png",

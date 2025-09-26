@@ -1,7 +1,7 @@
 {
   "name": "mifosx-web-app",
   "version": "1.0.0",
-  "description": "MifosX Web App is the default web application built on top of the Fineract platform for the Mifos user community leveraging the popular Angular framework.",
+  "description": "Orion is a comprehensive microfinance management platform designed for SACCOs, banks, and business-focused financial institutions, providing robust tools for loan management, client operations, and financial services.",
   "keywords": [
     "mifos",
     "openmf",

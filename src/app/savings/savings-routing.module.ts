@@ -44,7 +44,8 @@ import { SavingDocumentsResolver } from './common-resolvers/saving-documents.res
 import { SavingsTransactionGeneralTabComponent } from './savings-account-view/transactions/view-transaction/savings-transaction-general-tab/savings-transaction-general-tab.component';
 import { GeneralTabComponent } from './savings-account-view/general-tab/general-tab.component';
 
-/** Savings Routes */
+/** Savings Routes - Disabled */
+/*
 const routes: Routes = [
   {
     path: '',
@@ -176,7 +177,7 @@ const routes: Routes = [
                     component: DatatableTransactionTabComponent,
                     data: { title: 'View Data table', routeParamBreadcrumb: 'datatableName' },
                     resolve: {
-                      transactionDatatable: TransactionDatatableResolver
+                      transactionDatatable: TransactionDatableResolver
                     }
                   }
                 ]
@@ -266,6 +267,8 @@ const routes: Routes = [
     ]
   }
 ];
+*/
+const routes: Routes = [];
 @NgModule({
   imports: [RouterModule.forChild(routes)],
   exports: [RouterModule],

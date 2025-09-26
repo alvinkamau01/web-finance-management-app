@@ -1,8 +1,8 @@
-# Mifos X Web App ![build](https://github.com/openMF/web-app/actions/workflows/build.yml/badge.svg)
+# Orion ![build](https://github.com/openMF/web-app/actions/workflows/build.yml/badge.svg)
 
 ## Overview
 
-Mifos X Web App is a modern single-page application (SPA) built on top of the Mifos X platform for financial inclusion. It serves as the default web interface for the Mifos user community.
+Orion is a comprehensive microfinance management platform designed for SACCOs, banks, and business-focused financial institutions. It provides robust tools for loan management, client operations, and financial services, built on top of the Fineract platform.
 
 **Technologies Used:**
 
@@ -97,7 +97,7 @@ Choose ONE of the following methods to install the web app:
 
 #### Method 3: Docker Compose (Frontend + Backend)
 
-This sets up both the Mifos X Web App and Fineract backend:
+This sets up both the Orion Web App and Fineract backend:
 
 1. Clone the repository:
    ```
@@ -195,7 +195,7 @@ For more detailed configuration options, refer to the `env.sample` file in the r
 
 ### 1.0.0 (Tag: 1.0.0-fineract1.11)
 
-This is the first official release of the Mifos X web application:
+This is the first official release of the Orion web application:
 
 - Developed for Fineract 1.11
 - No Self Service area
