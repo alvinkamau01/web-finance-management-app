@@ -231,20 +231,20 @@
         <button mat-menu-item (click)="doAction('Transfer Client')">
           {{ 'labels.buttons.Transfer Client' | translate }}
         </button>
-        <span *ngIf="clientViewData.status.value === 'Pending'"
+        <span *ngIf="clientViewData.status.value === 'pending'"
           ><button mat-menu-item (click)="doAction('Activate')">
             {{ 'labels.buttons.Activate' | translate }}
           </button></span
         >
-        <span *ngIf="clientViewData.status.value === 'Pending'"
+        <span *ngIf="clientViewData.status.value === 'pending'"
           ><button mat-menu-item (click)="doAction('Withdraw')">
             {{ 'labels.buttons.Withdraw' | translate }}
           </button></span
         >
-        <span *ngIf="clientViewData.status.value === 'Pending'"
+        <span *ngIf="clientViewData.status.value === 'pending'"
           ><button mat-menu-item (click)="doAction('Reject')">{{ 'labels.buttons.Reject' | translate }}</button></span
         >
-        <span *ngIf="clientViewData.status.value === 'Pending'"
+        <span *ngIf="clientViewData.status.value === 'pending'"
           ><button mat-menu-item *mifosxHasPermission="'DELETE_CLIENT'" (click)="doAction('Delete')">
             {{ 'labels.buttons.Delete' | translate }}
           </button></span

@@ -36,7 +36,12 @@
     'labels.inputs.Remember me' | translate
   }}</mat-checkbox>
 
-  <mat-progress-bar *ngIf="loading" mode="indeterminate"></mat-progress-bar>
+  <div *ngIf="loading" class="modern-spinner">
+    <div class="spinner-ring"></div>
+    <div class="spinner-ring"></div>
+    <div class="spinner-ring"></div>
+    <div class="spinner-ring"></div>
+  </div>
 
   <button mat-raised-button color="primary" class="login-button flex-align-center" [disabled]="!loginForm.valid">
     {{ 'labels.buttons.Login' | translate }}

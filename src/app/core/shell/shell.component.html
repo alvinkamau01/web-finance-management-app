@@ -20,15 +20,18 @@
     <!-- Toolbar -->
     <mifosx-toolbar [sidenav]="sidenav" (collapse)="toggleCollapse($event)"></mifosx-toolbar>
     <!-- Progress Bar -->
-    <div *ngIf="progressBarMode !== 'none'">
-      <div class="loading"></div>
+    <div *ngIf="progressBarMode !== 'none'" class="loading-container">
+      <div class="modern-spinner">
+        <div class="spinner-ring"></div>
+        <div class="spinner-ring"></div>
+        <div class="spinner-ring"></div>
+        <div class="spinner-ring"></div>
+      </div>
     </div>
 
     <!-- Breadcrumb -->
     <mifosx-breadcrumb></mifosx-breadcrumb>
     <!-- Content -->
     <mifosx-content></mifosx-content>
-    <!-- Footer -->
-    <mifosx-footer [styleClass]="'main-page'"></mifosx-footer>
   </mat-sidenav-content>
 </mat-sidenav-container>

@@ -20,6 +20,9 @@ import {
 /** Custom Services */
 import { environment } from '../../environments/environment';
 import { ClientsService } from './clients.service';
+import { AuthenticationService } from 'app/core/authentication/authentication.service';
+import { UsersService } from '../users/users.service';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { NgIf, NgClass } from '@angular/common';
 import { FaIconComponent } from '@fortawesome/angular-fontawesome';
 import { MatProgressBar } from '@angular/material/progress-bar';
@@ -84,12 +87,39 @@ export class ClientsComponent implements OnInit {
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
 
-  constructor(private clientService: ClientsService) {}
+  /** Current user data */
+  currentUser: any;
+  /** Is current user a loan officer */
+  isLoanOfficer = false;
+  /** User role for access control */
+  userRole: string = 'admin';
+
+  constructor(
+    private clientService: ClientsService,
+    private authenticationService: AuthenticationService,
+    private usersService: UsersService,
+    private http: HttpClient
+  ) {}
 
   ngOnInit() {
-    if (environment.preloadClients) {
+    this.getCurrentUser();
+    // Always load clients, not just when preloadClients is true
+    // This ensures loan officers can see their assigned clients
+    // Initial load without staff filtering, will be filtered when user data arrives
+    this.getClients();
+  }
+
+  /**
+   * Gets the current user data and checks if loan officer.
+   */
+  getCurrentUser() {
+    const credentials = this.authenticationService.getCredentials();
+    this.usersService.getUser(credentials.userId.toString()).subscribe((user: any) => {
+      this.currentUser = user;
+      this.isLoanOfficer = user.staff && user.staff.isLoanOfficer;
+      // Reload clients with proper filtering after getting user data
       this.getClients();
-    }
+    });
   }
 
   /**
@@ -103,19 +133,36 @@ export class ClientsComponent implements OnInit {
 
   private getClients() {
     this.isLoading = true;
+    // Only apply staff filtering if we have user data and user is a loan officer
+    const staffId = (this.currentUser && this.currentUser.staff && this.isLoanOfficer) ? this.currentUser.staff.id : undefined;
+    console.log('Loading clients with staffId:', staffId, 'isLoanOfficer:', this.isLoanOfficer, 'currentUser:', this.currentUser);
+
+    // Use the search API for both admins and loan officers (now includes staffId)
+    console.log('Using search API for all users (now includes staffId)');
     this.clientService
-      .searchByText(this.filterText, this.currentPage, this.pageSize, this.sortAttribute, this.sortDirection)
+      .searchByText(this.filterText, this.currentPage, this.pageSize, this.sortAttribute, this.sortDirection, staffId)
       .subscribe(
         (data: any) => {
-          this.dataSource.data = data.content;
+          let clients = data.content;
+          console.log('Received clients data from search API:', data);
+          console.log('Clients before filtering:', clients.length);
+          console.log('Sample client staffId values:', clients.slice(0, 3).map((c: any) => ({ id: c.id, staffId: c.staffId, hasStaffId: c.hasOwnProperty('staffId') })));
 
+          // Server-side filtering should now handle staff filtering, but keep as backup
+          if (this.currentUser && this.currentUser.staff && this.isLoanOfficer) {
+            console.log('Loan officer - checking if server-side filtering worked');
+            console.log('Current user staffId:', this.currentUser.staff.id);
+            console.log('Clients returned:', clients.map((c: any) => ({id: c.id, staffId: c.staffId})));
+          }
+
+          this.dataSource.data = clients;
           this.totalRows = data.totalElements;
-
           this.existsClientsToFilter = data.numberOfElements > 0;
           this.notExistsClientsToFilter = !this.existsClientsToFilter;
           this.isLoading = false;
         },
         (error: any) => {
+          console.error('Error loading clients:', error);
           this.isLoading = false;
         }
       );

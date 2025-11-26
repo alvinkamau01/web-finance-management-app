@@ -27,6 +27,7 @@
       class="tab-link"
       [matMenuTriggerFor]="institutionMenu"
       #institutionMenuTrigger="matMenuTrigger"
+      *ngIf="userRole === 'loan_officer' || userRole === 'admin'"
       tabindex="0"
     >
       <fa-icon class="mr-05" icon="university" size="lg"></fa-icon>
@@ -34,21 +35,20 @@
     </a>
 
     <span class="hide-lt-md">
-      <a #accounting class="tab-link accounting-link" [routerLink]="['/accounting']" tabindex="0">
+      <!-- Accounting - Accessible to Accountant and Admin -->
+      <a #accounting class="tab-link accounting-link" [routerLink]="['/accounting']" *ngIf="userRole === 'accountant' || userRole === 'admin'" tabindex="0">
         <fa-icon class="mr-05" icon="money-bill-alt" size="lg"></fa-icon>
         {{ 'labels.menus.Accounting' | translate }}
       </a>
-      <a #reports class="tab-link" [matMenuTriggerFor]="reportsMenu" #reportsMenuTrigger="matMenuTrigger" tabindex="0">
+      <!-- Reports - Accessible to Loan Officer, Accountant, and Admin -->
+      <a #reports class="tab-link" [matMenuTriggerFor]="reportsMenu" #reportsMenuTrigger="matMenuTrigger" *ngIf="userRole === 'loan_officer' || userRole === 'accountant' || userRole === 'admin'" tabindex="0">
         <fa-icon class="mr-05" icon="chart-bar" size="lg"></fa-icon>
         {{ 'labels.menus.Reports' | translate }}
       </a>
-      <a #admin class="tab-link" [matMenuTriggerFor]="adminMenu" #adminMenuTrigger="matMenuTrigger" tabindex="0">
+      <!-- Admin - Accessible only to Admin -->
+      <a #admin class="tab-link" [matMenuTriggerFor]="adminMenu" #adminMenuTrigger="matMenuTrigger" *ngIf="userRole === 'admin'" tabindex="0">
         <fa-icon class="mr-05" icon="shield-alt" size="lg"></fa-icon>
         {{ 'labels.menus.Admin' | translate }}
-      </a>
-      <a #configWizard class="tab-link" (click)="openDialog()" tabindex="0">
-        <fa-icon class="mr-05" icon="info" size="lg"></fa-icon>
-        {{ 'labels.menus.Configuration Wizard' | translate }}
       </a>
     </span>
   </div>
@@ -92,13 +92,16 @@
   <button mat-menu-item routerLink="/groups" tabindex="0">{{ 'labels.menus.Groups' | translate }}</button>
   <button mat-menu-item routerLink="/centers" tabindex="0">{{ 'labels.menus.Centers' | translate }}</button>
   <span class="hide-lt-md">
-    <button mat-menu-item [routerLink]="['/accounting']" tabindex="0">
+    <!-- Accounting submenu - only for Admin -->
+    <button mat-menu-item [routerLink]="['/accounting']" *ngIf="userRole === 'admin'" tabindex="0">
       {{ 'labels.menus.Accounting' | translate }}
     </button>
-    <button mat-menu-item [matMenuTriggerFor]="reportsMenu" tabindex="0">
+    <!-- Reports submenu - for Loan Officer, Accountant, and Admin -->
+    <button mat-menu-item [matMenuTriggerFor]="reportsMenu" *ngIf="userRole === 'loan_officer' || userRole === 'accountant' || userRole === 'admin'" tabindex="0">
       {{ 'labels.menus.Reports' | translate }}
     </button>
-    <button mat-menu-item [matMenuTriggerFor]="adminMenu" tabindex="0">{{ 'labels.menus.Admin' | translate }}</button>
+    <!-- Admin submenu - only for Admin -->
+    <button mat-menu-item [matMenuTriggerFor]="adminMenu" *ngIf="userRole === 'admin'" tabindex="0">{{ 'labels.menus.Admin' | translate }}</button>
   </span>
 </mat-menu>
 

@@ -170,9 +170,7 @@ export class ClientsService {
 
   getClientProfileImage(clientId: string) {
     const httpParams = new HttpParams().set('maxHeight', '150');
-    return this.http
-      .skipErrorHandler()
-      .get(`/clients/${clientId}/images`, { params: httpParams, responseType: 'text' });
+    return this.http.get(`/clients/${clientId}/images`, { params: httpParams, responseType: 'text' });
   }
 
   uploadClientProfileImage(clientId: string, image: File) {
@@ -394,7 +392,7 @@ export class ClientsService {
     return this.http.get(`/clients/${clientId}/collaterals/template`);
   }
 
-  searchByText(text: string, page: number, pageSize: number, sortAttribute: string = '', sortDirection: string = '') {
+  searchByText(text: string, page: number, pageSize: number, sortAttribute: string = '', sortDirection: string = '', staffId?: number) {
     let request: any = {
       request: {
         text
@@ -412,6 +410,11 @@ export class ClientsService {
           }
         ]
       };
+    }
+    // Add staff filter for loan officers - server-side filtering
+    if (staffId) {
+      request.request.staffId = staffId;
+      request.request.includeStaffId = true;
     }
     return this.http.post(`/v2/clients/search`, request);
   }

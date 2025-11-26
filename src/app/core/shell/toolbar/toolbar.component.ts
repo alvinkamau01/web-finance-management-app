@@ -88,6 +88,9 @@ export class ToolbarComponent implements OnInit, AfterViewInit, AfterContentChec
   /** Sidenav collapse event. */
   @Output() collapse = new EventEmitter<boolean>();
 
+  /** User role for access control */
+  userRole: string = 'admin'; // Default to admin, will be set based on user permissions
+
   /**
    * @param {BreakpointObserver} breakpointObserver Breakpoint observer to detect screen size.
    * @param {Router} router Router for navigation.
@@ -115,6 +118,34 @@ export class ToolbarComponent implements OnInit, AfterViewInit, AfterContentChec
         this.toggleSidenavCollapse(false);
       }
     });
+
+    // Determine user role based on permissions
+    this.setUserRole();
+  }
+
+  /**
+   * Sets user role based on permissions for access control
+   */
+  private setUserRole() {
+    const savedCredentials = this.authenticationService.getCredentials();
+    const permissions = savedCredentials.permissions || [];
+
+    // Check for admin permissions
+    if (permissions.includes('ALL_FUNCTIONS') ||
+        permissions.includes('READ_USER') ||
+        permissions.includes('CREATE_USER')) {
+      this.userRole = 'admin';
+    }
+    // Check for accountant permissions
+    else if (permissions.includes('READ_JOURNALENTRY') ||
+             permissions.includes('CREATE_JOURNALENTRY') ||
+             permissions.includes('READ_GLACCOUNT')) {
+      this.userRole = 'accountant';
+    }
+    // Default to loan officer (most restrictive)
+    else {
+      this.userRole = 'loan_officer';
+    }
   }
 
   ngAfterContentChecked(): void {

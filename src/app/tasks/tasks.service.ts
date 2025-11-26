@@ -66,10 +66,13 @@ export class TasksService {
   }
 
   /**
-   * Get all loans to be created
+   * Get all loans to be disbursed, optionally filtered by staff ID for loan officers
    */
-  getAllLoansToBeDisbursed(): Observable<any> {
-    const httpParams = new HttpParams().set('limit', '1000').set('status', '200');
+  getAllLoansToBeDisbursed(staffId?: number): Observable<any> {
+    let httpParams = new HttpParams().set('limit', '1000').set('status', '200');
+    if (staffId) {
+      httpParams = httpParams.set('staffId', staffId.toString());
+    }
     return this.http.get('/loans', { params: httpParams });
   }
 
@@ -121,5 +124,14 @@ export class TasksService {
    */
   getCheckerInboxDetail(makerCheckerId: any): Observable<any> {
     return this.http.get(`/audits/${makerCheckerId}`);
+  }
+  /**
+   * Initiate B2C transfer to ph-ee for M-Pesa disbursement.
+   * @param {transferData} Transfer data including loan details.
+   */
+  initiatePheeTransfer(transferData: any): Observable<any> {
+    // Assuming ph-ee connector is configured at a specific URL, e.g., from environment
+    const pheeUrl = 'http://localhost:8080/b2c/transfer'; // B2C endpoint for M-Pesa disbursement
+    return this.http.post(pheeUrl, transferData);
   }
 }

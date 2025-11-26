@@ -1,0 +1,26 @@
+steps:
+  - name: 'gcr.io/cloud-builders/docker'
+    args: ['build', '-f', 'Dockerfile.cloudrun', '-t', 'gcr.io/microf-management-system/web-finance-app-cloudrun', '.']
+  - name: 'gcr.io/cloud-builders/docker'
+    args: ['push', 'gcr.io/microf-management-system/web-finance-app-cloudrun']
+  - name: 'gcr.io/google.com/cloudsdktool/cloud-sdk'
+    entrypoint: gcloud
+    args:
+      - 'run'
+      - 'deploy'
+      - 'web-finance-app-cloudrun'
+      - '--image'
+      - 'gcr.io/microf-management-system/web-finance-app-cloudrun'
+      - '--platform'
+      - 'managed'
+      - '--port'
+      - '8080'
+      - '--allow-unauthenticated'
+      - '--set-env-vars'
+      - 'FINERACT_API_URL=https://fineract-cloud-run-776345797159.us-central1.run.app'
+      - '--set-env-vars'
+      - 'OPERATIONS_API_URL=https://fineract-cloud-run-776345797159.us-central1.run.app'
+      - '--region'
+      - 'us-central1'
+      - '--project'
+      - 'microf-management-system'

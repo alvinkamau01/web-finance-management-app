@@ -120,6 +120,11 @@ export class EmployeesComponent implements OnInit, AfterViewInit {
     this.dataSource = new MatTableDataSource(this.employeesData);
     this.dataSource.paginator = this.paginator;
     this.dataSource.sort = this.sort;
+    // Debug logs for isLoanOfficer
+    console.log('Employees data:', this.employeesData);
+    this.employeesData.forEach((employee: any) => {
+      console.log(`Employee ${employee.displayName}: isLoanOfficer = ${employee.isLoanOfficer}, type = ${typeof employee.isLoanOfficer}`);
+    });
   }
 
   /**

@@ -61,8 +61,6 @@ export class ClientGeneralStepComponent implements OnInit {
   clientClassificationTypeOptions: any;
   /** Business Line Options */
   businessLineOptions: any;
-  /** Constitution Options */
-  constitutionOptions: any;
   /** Gender Options */
   genderOptions: any;
   /** Saving Product Options */
@@ -134,7 +132,6 @@ export class ClientGeneralStepComponent implements OnInit {
     this.clientTypeOptions = this.clientTemplate.clientTypeOptions;
     this.clientClassificationTypeOptions = this.clientTemplate.clientClassificationOptions;
     this.businessLineOptions = this.clientTemplate.clientNonPersonMainBusinessLineOptions;
-    this.constitutionOptions = this.clientTemplate.clientNonPersonConstitutionOptions;
     this.genderOptions = this.clientTemplate.genderOptions;
     this.savingProductOptions = this.clientTemplate.savingProductOptions;
   }
@@ -146,6 +143,7 @@ export class ClientGeneralStepComponent implements OnInit {
     this.createClientForm.get('legalFormId').valueChanges.subscribe((legalFormId: number) => {
       this.legalFormChangeEvent.emit({ legalForm: legalFormId });
       if (legalFormId === 1) {
+        // Person
         this.createClientForm.removeControl('fullname');
         this.createClientForm.removeControl('clientNonPersonDetails');
         this.createClientForm.addControl(
@@ -161,7 +159,9 @@ export class ClientGeneralStepComponent implements OnInit {
             Validators.required,
             Validators.pattern('(^[A-z]).*')])
         );
+        // Removed person-specific fields: market, rental, owned, peopleHoused
       } else {
+        // Entity
         this.createClientForm.removeControl('firstname');
         this.createClientForm.removeControl('middlename');
         this.createClientForm.removeControl('lastname');
@@ -174,11 +174,6 @@ export class ClientGeneralStepComponent implements OnInit {
         this.createClientForm.addControl(
           'clientNonPersonDetails',
           this.formBuilder.group({
-            constitutionId: [
-              '',
-              Validators.required
-            ],
-            incorpValidityTillDate: [''],
             incorpNumber: [''],
             mainBusinessLineId: [''],
             remarks: ['']
@@ -212,6 +207,7 @@ export class ClientGeneralStepComponent implements OnInit {
     return legalFormId === 1 ? values[0] : values[1];
   }
 
+
   /**
    * Client General Details
    */
@@ -234,13 +230,15 @@ export class ClientGeneralStepComponent implements OnInit {
       generalDetails.dateOfBirth = this.dateUtils.formatDate(generalDetails.dateOfBirth, dateFormat);
     }
 
-    if (generalDetails.clientNonPersonDetails && generalDetails.clientNonPersonDetails.incorpValidityTillDate) {
-      generalDetails.clientNonPersonDetails = {
-        ...generalDetails.clientNonPersonDetails,
-        incorpValidityTillDate: this.dateUtils.formatDate(generalDetails.dateOfBirth, dateFormat),
-        dateFormat,
-        locale
-      };
+    if (generalDetails.clientNonPersonDetails) {
+      if (generalDetails.clientNonPersonDetails.incorpValidityTillDate) {
+        generalDetails.clientNonPersonDetails = {
+          ...generalDetails.clientNonPersonDetails,
+          incorpValidityTillDate: this.dateUtils.formatDate(generalDetails.clientNonPersonDetails.incorpValidityTillDate, dateFormat),
+          dateFormat,
+          locale
+        };
+      }
     }
     return generalDetails;
   }

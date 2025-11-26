@@ -10,9 +10,19 @@
       </mat-form-field>
     </div>
     <div class="flex-60">
-      <button mat-raised-button color="success" *mifosxHasPermission="'APPROVE_LOAN'" (click)="disburseLoan()">
-        <fa-icon icon="check" class="m-r-10"></fa-icon>{{ 'labels.menus.Disburse' | translate }}
+      <button mat-raised-button color="success" *mifosxHasPermission="'DISBURSE_LOAN'" (click)="disburseLoan()" [disabled]="isDisbursing">
+        <mat-icon class="m-r-10" *ngIf="!isDisbursing">check_circle</mat-icon>
+        <mat-icon class="fa-spin m-r-10" *ngIf="isDisbursing">refresh</mat-icon>
+        {{ isDisbursing ? ('labels.text.Disbursing and Transferring...' | translate) : ('labels.menus.Disburse and Transfer' | translate) }}
       </button>
+    </div>
+  </div>
+
+  <!-- Notification area for transfer status -->
+  <div class="alert alert-info" *ngIf="transferMessages.length > 0">
+    <div class="message" *ngFor="let message of transferMessages">
+      <mat-icon class="alert-check">info</mat-icon>
+      {{ message }}
     </div>
   </div>
 
@@ -86,7 +96,7 @@
 
 <div class="alert" *ngIf="loans.length === 0">
   <div class="message">
-    <i class="fa fa-exclamation-circle alert-check"></i>
+    <mat-icon class="alert-check">warning</mat-icon>
     {{ 'labels.text.No pending loan available for disbursal' | translate }}
   </div>
 </div>
