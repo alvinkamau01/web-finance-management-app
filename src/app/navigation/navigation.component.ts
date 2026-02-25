@@ -9,8 +9,8 @@ import { NavigationService } from './navigation.service';
 /** Custom Components */
 import { OfficeNavigationComponent } from './office-navigation/office-navigation.component';
 import { StaffNavigationComponent } from './staff-navigation/staff-navigation.component';
-import { CenterNavigationComponent } from './center-navigation/center-navigation.component';
-import { GroupNavigationComponent } from './group-navigation/group-navigation.component';
+// import { CenterNavigationComponent } from './center-navigation/center-navigation.component';
+// import { GroupNavigationComponent } from './group-navigation/group-navigation.component';
 import { ClientNavigationComponent } from './client-navigation/client-navigation.component';
 import { STANDALONE_SHARED_IMPORTS } from 'app/standalone-shared.module';
 
@@ -25,8 +25,8 @@ import { STANDALONE_SHARED_IMPORTS } from 'app/standalone-shared.module';
     ...STANDALONE_SHARED_IMPORTS,
     OfficeNavigationComponent,
     StaffNavigationComponent,
-    CenterNavigationComponent,
-    GroupNavigationComponent,
+    // CenterNavigationComponent,
+    // GroupNavigationComponent,
     ClientNavigationComponent
   ]
 })
@@ -34,8 +34,8 @@ export class NavigationComponent implements OnInit {
   /** Navigation Components */
   @ViewChild(OfficeNavigationComponent) officeNavigationComponent: OfficeNavigationComponent;
   @ViewChild(StaffNavigationComponent) staffNavigationComponent: StaffNavigationComponent;
-  @ViewChild(CenterNavigationComponent) centerNavigationComponent: CenterNavigationComponent;
-  @ViewChild(GroupNavigationComponent) groupNavigationComponent: GroupNavigationComponent;
+  // @ViewChild(CenterNavigationComponent) centerNavigationComponent: CenterNavigationComponent;
+  // @ViewChild(GroupNavigationComponent) groupNavigationComponent: GroupNavigationComponent;
   @ViewChild(ClientNavigationComponent) clientNavigationComponent: ClientNavigationComponent;
 
   /** Office data */
@@ -43,9 +43,9 @@ export class NavigationComponent implements OnInit {
   /** Employee data */
   employeeData: any;
   /** Center data */
-  centerData: any;
+  // centerData: any;
   /** Group data */
-  groupData: any;
+  // groupData: any;
   /** Client data */
   clientData: any;
 
@@ -54,9 +54,9 @@ export class NavigationComponent implements OnInit {
   /** Employee selector */
   employeeSelector = new UntypedFormControl();
   /** Center selector */
-  centerSelector = new UntypedFormControl();
+  // centerSelector = new UntypedFormControl();
   /** Group selector */
-  groupSelector = new UntypedFormControl();
+  // groupSelector = new UntypedFormControl();
   /** Client selector */
   clientSelector = new UntypedFormControl();
 
@@ -90,8 +90,8 @@ export class NavigationComponent implements OnInit {
   ngOnInit() {
     this.setOfficeSelector();
     this.setEmployeeSelector();
-    this.setCenterSelector();
-    this.setGroupSelector();
+    // this.setCenterSelector();
+    // this.setGroupSelector();
     this.setClientSelector();
   }
 
@@ -101,12 +101,12 @@ export class NavigationComponent implements OnInit {
   setOfficeSelector() {
     this.officeSelector.valueChanges.subscribe((officeId) => {
       this.employeeSelector.reset(null, { emitEvent: false });
-      this.centerSelector.reset(null, { emitEvent: false });
-      this.groupSelector.reset(null, { emitEvent: false });
+      // this.centerSelector.reset(null, { emitEvent: false });
+      // this.groupSelector.reset(null, { emitEvent: false });
       this.clientSelector.reset(null, { emitEvent: false });
       this.employeeData = null;
-      this.centerData = null;
-      this.groupData = null;
+      // this.centerData = null;
+      // this.groupData = null;
       this.clientData = null;
       this.selectedItem = this.officeData.find((office: any) => office.id === officeId);
       this.selectedItem.itemType = 'office';
@@ -127,22 +127,22 @@ export class NavigationComponent implements OnInit {
   setEmployeeSelector() {
     this.employeeSelector.valueChanges.subscribe((employeeId) => {
       if (employeeId) {
-        this.centerSelector.reset(null, { emitEvent: false });
-        this.groupSelector.reset(null, { emitEvent: false });
+        // this.centerSelector.reset(null, { emitEvent: false });
+        // this.groupSelector.reset(null, { emitEvent: false });
         this.clientSelector.reset(null, { emitEvent: false });
-        this.centerData = null;
-        this.groupData = null;
+        // this.centerData = null;
+        // this.groupData = null;
         this.clientData = null;
         this.selectedItem = this.employeeData.find((employee: any) => employee.id === employeeId);
         this.selectedItem.itemType = 'employee';
-        this.navigationService.getCentersFromStaffId(employeeId).subscribe((centers: any) => {
-          this.centerData = centers;
-          if (this.centerData.length) {
-            this.centerSelector.enable();
-          } else {
-            this.centerSelector.disable();
-          }
-        });
+        // this.navigationService.getCentersFromStaffId(employeeId).subscribe((centers: any) => {
+        //   this.centerData = centers;
+        //   if (this.centerData.length) {
+        //     this.centerSelector.enable();
+        //   } else {
+        //     this.centerSelector.disable();
+        //   }
+        // });
       }
     });
   }
@@ -150,60 +150,60 @@ export class NavigationComponent implements OnInit {
   /**
    * Sets the center selector
    */
-  setCenterSelector() {
-    this.centerSelector.valueChanges.subscribe((centerId) => {
-      if (centerId) {
-        this.groupSelector.reset(null, { emitEvent: false });
-        this.clientSelector.reset(null, { emitEvent: false });
-        this.groupData = null;
-        this.clientData = null;
-        this.navigationService.getCenter(centerId).subscribe((center: any) => {
-          this.selectedItem = center;
-          this.selectedItem.itemType = 'center';
-          this.groupData = center.groupMembers ? center.groupMembers : [];
-          if (this.groupData.length) {
-            this.groupSelector.enable();
-          } else {
-            this.groupSelector.disable();
-          }
-        });
-        this.selectedItemAccounts = null;
-        this.navigationService.getCenterAccounts(centerId).subscribe((centerAccounts: any) => {
-          this.selectedItemAccounts = centerAccounts;
-        });
-        this.selectedItemSummary = null;
-        this.navigationService.getCenterSummary(centerId).subscribe((centerSummary: any) => {
-          this.selectedItemSummary = centerSummary[0];
-        });
-      }
-    });
-  }
+  // setCenterSelector() {
+  //   this.centerSelector.valueChanges.subscribe((centerId) => {
+  //     if (centerId) {
+  //       this.groupSelector.reset(null, { emitEvent: false });
+  //       this.clientSelector.reset(null, { emitEvent: false });
+  //       this.groupData = null;
+  //       this.clientData = null;
+  //       this.navigationService.getCenter(centerId).subscribe((center: any) => {
+  //         this.selectedItem = center;
+  //         this.selectedItem.itemType = 'center';
+  //         this.groupData = center.groupMembers ? center.groupMembers : [];
+  //         if (this.groupData.length) {
+  //           this.groupSelector.enable();
+  //         } else {
+  //           this.groupSelector.disable();
+  //         }
+  //       });
+  //       this.selectedItemAccounts = null;
+  //       this.navigationService.getCenterAccounts(centerId).subscribe((centerAccounts: any) => {
+  //         this.selectedItemAccounts = centerAccounts;
+  //       });
+  //       this.selectedItemSummary = null;
+  //       this.navigationService.getCenterSummary(centerId).subscribe((centerSummary: any) => {
+  //         this.selectedItemSummary = centerSummary[0];
+  //       });
+  //     }
+  //   });
+  // }
 
   /**
    * Sets the group selector
    */
-  setGroupSelector() {
-    this.groupSelector.valueChanges.subscribe((groupId) => {
-      if (groupId) {
-        this.clientSelector.reset(null, { emitEvent: false });
-        this.clientData = null;
-        this.navigationService.getGroup(groupId).subscribe((group: any) => {
-          this.selectedItem = group;
-          this.selectedItem.itemType = 'group';
-          this.clientData = group.clientMembers ? group.clientMembers : [];
-          if (this.clientData.length) {
-            this.clientSelector.enable();
-          } else {
-            this.clientSelector.disable();
-          }
-        });
-        this.selectedItemAccounts = null;
-        this.navigationService.getGroupAccounts(groupId).subscribe((groupAccounts: any) => {
-          this.selectedItemAccounts = groupAccounts;
-        });
-      }
-    });
-  }
+  // setGroupSelector() {
+  //   this.groupSelector.valueChanges.subscribe((groupId) => {
+  //     if (groupId) {
+  //       this.clientSelector.reset(null, { emitEvent: false });
+  //       this.clientData = null;
+  //       this.navigationService.getGroup(groupId).subscribe((group: any) => {
+  //         this.selectedItem = group;
+  //         this.selectedItem.itemType = 'group';
+  //         this.clientData = group.clientMembers ? group.clientMembers : [];
+  //         if (this.clientData.length) {
+  //           this.clientSelector.enable();
+  //         } else {
+  //           this.clientSelector.disable();
+  //         }
+  //       });
+  //       this.selectedItemAccounts = null;
+  //       this.navigationService.getGroupAccounts(groupId).subscribe((groupAccounts: any) => {
+  //         this.selectedItemAccounts = groupAccounts;
+  //       });
+  //     }
+  //   });
+  // }
 
   /**
    * Sets the client selector

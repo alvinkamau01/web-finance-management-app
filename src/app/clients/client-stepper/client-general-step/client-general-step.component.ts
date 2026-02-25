@@ -207,7 +207,6 @@ export class ClientGeneralStepComponent implements OnInit {
     return legalFormId === 1 ? values[0] : values[1];
   }
 
-
   /**
    * Client General Details
    */
@@ -234,7 +233,10 @@ export class ClientGeneralStepComponent implements OnInit {
       if (generalDetails.clientNonPersonDetails.incorpValidityTillDate) {
         generalDetails.clientNonPersonDetails = {
           ...generalDetails.clientNonPersonDetails,
-          incorpValidityTillDate: this.dateUtils.formatDate(generalDetails.clientNonPersonDetails.incorpValidityTillDate, dateFormat),
+          incorpValidityTillDate: this.dateUtils.formatDate(
+            generalDetails.clientNonPersonDetails.incorpValidityTillDate,
+            dateFormat
+          ),
           dateFormat,
           locale
         };

@@ -31,9 +31,7 @@ Orion is a comprehensive microfinance management platform designed for SACCOs, b
 Before installing the web app, you need to set up the Fineract backend server:
 
 1. **Choose ONE of these backend options:**
-
    - **Option A: Use existing remote server**
-
      - Use the sandbox at `https://sandbox.mifos.community`
      - Use the demo at `https://demo.mifos.community`
      - Configure to your server by updating API URLs in environment files

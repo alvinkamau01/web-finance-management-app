@@ -134,8 +134,16 @@ export class ClientsComponent implements OnInit {
   private getClients() {
     this.isLoading = true;
     // Only apply staff filtering if we have user data and user is a loan officer
-    const staffId = (this.currentUser && this.currentUser.staff && this.isLoanOfficer) ? this.currentUser.staff.id : undefined;
-    console.log('Loading clients with staffId:', staffId, 'isLoanOfficer:', this.isLoanOfficer, 'currentUser:', this.currentUser);
+    const staffId =
+      this.currentUser && this.currentUser.staff && this.isLoanOfficer ? this.currentUser.staff.id : undefined;
+    console.log(
+      'Loading clients with staffId:',
+      staffId,
+      'isLoanOfficer:',
+      this.isLoanOfficer,
+      'currentUser:',
+      this.currentUser
+    );
 
     // Use the search API for both admins and loan officers (now includes staffId)
     console.log('Using search API for all users (now includes staffId)');
@@ -146,13 +154,21 @@ export class ClientsComponent implements OnInit {
           let clients = data.content;
           console.log('Received clients data from search API:', data);
           console.log('Clients before filtering:', clients.length);
-          console.log('Sample client staffId values:', clients.slice(0, 3).map((c: any) => ({ id: c.id, staffId: c.staffId, hasStaffId: c.hasOwnProperty('staffId') })));
+          console.log(
+            'Sample client staffId values:',
+            clients
+              .slice(0, 3)
+              .map((c: any) => ({ id: c.id, staffId: c.staffId, hasStaffId: c.hasOwnProperty('staffId') }))
+          );
 
           // Server-side filtering should now handle staff filtering, but keep as backup
           if (this.currentUser && this.currentUser.staff && this.isLoanOfficer) {
             console.log('Loan officer - checking if server-side filtering worked');
             console.log('Current user staffId:', this.currentUser.staff.id);
-            console.log('Clients returned:', clients.map((c: any) => ({id: c.id, staffId: c.staffId})));
+            console.log(
+              'Clients returned:',
+              clients.map((c: any) => ({ id: c.id, staffId: c.staffId }))
+            );
           }
 
           this.dataSource.data = clients;

@@ -300,6 +300,22 @@ export class AuthenticationService {
   }
 
   /**
+   * Gets the current user data.
+   * @returns {any} The user data if available.
+   */
+  getUser(): any {
+    const credentials = this.getCredentials();
+    if (credentials) {
+      return {
+        username: credentials.username,
+        userId: credentials.userId,
+        isAccountant: credentials.isAccountant
+      };
+    }
+    return null;
+  }
+
+  /**
    * Sets the user credentials.
    *
    * The credentials may be persisted across sessions by setting the `rememberMe` parameter to true.

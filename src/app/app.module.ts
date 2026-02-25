@@ -19,8 +19,8 @@ import { LoginModule } from './login/login.module';
 import { SettingsModule } from './settings/settings.module';
 import { NavigationModule } from './navigation/navigation.module';
 import { ClientsModule } from './clients/clients.module';
-import { GroupsModule } from './groups/groups.module';
-import { CentersModule } from './centers/centers.module';
+// import { GroupsModule } from './groups/groups.module';
+// import { CentersModule } from './centers/centers.module';
 import { AccountingModule } from './accounting/accounting.module';
 import { SystemModule } from './system/system.module';
 import { ProductsModule } from './products/products.module';
@@ -93,8 +93,8 @@ export function HttpLoaderFactory(http: HttpClient) {
     NavigationModule,
     ClientsModule,
     ReportsModule,
-    GroupsModule,
-    CentersModule,
+    // GroupsModule,
+    // CentersModule,
     AccountingModule,
     SystemModule,
     ProductsModule,
@@ -108,7 +108,6 @@ export function HttpLoaderFactory(http: HttpClient) {
     ConfigurationWizardModule,
     AppRoutingModule,
     NotFoundComponent
-
   ],
   providers: [
     DatePipe,

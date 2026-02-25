@@ -10,10 +10,20 @@
       </mat-form-field>
     </div>
     <div class="flex-60">
-      <button mat-raised-button color="success" *mifosxHasPermission="'DISBURSE_LOAN'" (click)="disburseLoan()" [disabled]="isDisbursing">
+      <button
+        mat-raised-button
+        color="success"
+        *mifosxHasPermission="'DISBURSE_LOAN'"
+        (click)="disburseLoan()"
+        [disabled]="isDisbursing"
+      >
         <mat-icon class="m-r-10" *ngIf="!isDisbursing">check_circle</mat-icon>
         <mat-icon class="fa-spin m-r-10" *ngIf="isDisbursing">refresh</mat-icon>
-        {{ isDisbursing ? ('labels.text.Disbursing and Transferring...' | translate) : ('labels.menus.Disburse and Transfer' | translate) }}
+        {{
+          isDisbursing
+            ? ('labels.text.Disbursing and Transferring...' | translate)
+            : ('labels.menus.Disburse and Transfer' | translate)
+        }}
       </button>
     </div>
   </div>

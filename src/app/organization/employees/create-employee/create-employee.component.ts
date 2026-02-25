@@ -101,6 +101,7 @@ export class CreateEmployeeComponent implements OnInit, AfterViewInit {
           Validators.pattern('(^[A-z]).*')]
       ],
       isLoanOfficer: [false],
+      isAccountant: [false],
       mobileNo: [''],
       joiningDate: [
         '',

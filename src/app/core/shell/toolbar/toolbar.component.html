@@ -23,30 +23,47 @@
 
   <div class="tab-nav-bar">
     <a
-      #institution
+      #client
       class="tab-link"
-      [matMenuTriggerFor]="institutionMenu"
-      #institutionMenuTrigger="matMenuTrigger"
+      routerLink="/clients"
       *ngIf="userRole === 'loan_officer' || userRole === 'admin'"
       tabindex="0"
     >
-      <fa-icon class="mr-05" icon="university" size="lg"></fa-icon>
-      {{ 'labels.menus.Institution' | translate }}
+      <fa-icon class="mr-05" icon="users" size="lg"></fa-icon>
+      Clients
     </a>
 
     <span class="hide-lt-md">
-      <!-- Accounting - Accessible to Accountant and Admin -->
-      <a #accounting class="tab-link accounting-link" [routerLink]="['/accounting']" *ngIf="userRole === 'accountant' || userRole === 'admin'" tabindex="0">
+      <!-- Accounting, Reports, and Admin links removed as they are duplicated in Institution menu -->
+      <a
+        #accounting
+        class="tab-link accounting-link"
+        [routerLink]="['/accounting']"
+        *ngIf="userRole === 'accountant' || userRole === 'admin'"
+        tabindex="0"
+      >
         <fa-icon class="mr-05" icon="money-bill-alt" size="lg"></fa-icon>
         {{ 'labels.menus.Accounting' | translate }}
       </a>
-      <!-- Reports - Accessible to Loan Officer, Accountant, and Admin -->
-      <a #reports class="tab-link" [matMenuTriggerFor]="reportsMenu" #reportsMenuTrigger="matMenuTrigger" *ngIf="userRole === 'loan_officer' || userRole === 'accountant' || userRole === 'admin'" tabindex="0">
+      <a
+        #reports
+        class="tab-link"
+        [matMenuTriggerFor]="reportsMenu"
+        #reportsMenuTrigger="matMenuTrigger"
+        *ngIf="userRole === 'loan_officer' || userRole === 'accountant' || userRole === 'admin'"
+        tabindex="0"
+      >
         <fa-icon class="mr-05" icon="chart-bar" size="lg"></fa-icon>
         {{ 'labels.menus.Reports' | translate }}
       </a>
-      <!-- Admin - Accessible only to Admin -->
-      <a #admin class="tab-link" [matMenuTriggerFor]="adminMenu" #adminMenuTrigger="matMenuTrigger" *ngIf="userRole === 'admin'" tabindex="0">
+      <a
+        #admin
+        class="tab-link"
+        [matMenuTriggerFor]="adminMenu"
+        #adminMenuTrigger="matMenuTrigger"
+        *ngIf="userRole === 'admin'"
+        tabindex="0"
+      >
         <fa-icon class="mr-05" icon="shield-alt" size="lg"></fa-icon>
         {{ 'labels.menus.Admin' | translate }}
       </a>
@@ -87,29 +104,34 @@
   <mifosx-language-selector class="ml-1 language"></mifosx-language-selector>
 </mat-menu>
 
-<mat-menu #institutionMenu="matMenu" [overlapTrigger]="false">
-  <button mat-menu-item routerLink="/clients" tabindex="0">{{ 'labels.menus.Clients' | translate }}</button>
-  <button mat-menu-item routerLink="/groups" tabindex="0">{{ 'labels.menus.Groups' | translate }}</button>
-  <button mat-menu-item routerLink="/centers" tabindex="0">{{ 'labels.menus.Centers' | translate }}</button>
-  <span class="hide-lt-md">
-    <!-- Accounting submenu - only for Admin -->
+<mat-menu #clientMenu="matMenu" [overlapTrigger]="false">
+  <button mat-menu-item routerLink="/clients" tabindex="0">{{ 'Clients' | translate }}</button>
+  <!-- <button mat-menu-item routerLink="/groups" tabindex="0">{{ 'labels.menus.Groups' | translate }}</button>
+  <button mat-menu-item routerLink="/centers" tabindex="0">{{ 'labels.menus.Centers' | translate }}</button> -->
+  <!-- Accounting, Reporting, and Admin removed from Institution menu as they are duplicated in main toolbar -->
+  <!-- <span class="hide-lt-md">
     <button mat-menu-item [routerLink]="['/accounting']" *ngIf="userRole === 'admin'" tabindex="0">
       {{ 'labels.menus.Accounting' | translate }}
     </button>
-    <!-- Reports submenu - for Loan Officer, Accountant, and Admin -->
-    <button mat-menu-item [matMenuTriggerFor]="reportsMenu" *ngIf="userRole === 'loan_officer' || userRole === 'accountant' || userRole === 'admin'" tabindex="0">
+    <button
+      mat-menu-item
+      [matMenuTriggerFor]="reportsMenu"
+      *ngIf="userRole === 'loan_officer' || userRole === 'accountant' || userRole === 'admin'"
+      tabindex="0"
+    >
       {{ 'labels.menus.Reports' | translate }}
     </button>
-    <!-- Admin submenu - only for Admin -->
-    <button mat-menu-item [matMenuTriggerFor]="adminMenu" *ngIf="userRole === 'admin'" tabindex="0">{{ 'labels.menus.Admin' | translate }}</button>
-  </span>
+    <button mat-menu-item [matMenuTriggerFor]="adminMenu" *ngIf="userRole === 'admin'" tabindex="0">
+      {{ 'labels.menus.Admin' | translate }}
+    </button>
+  </span> -->
 </mat-menu>
 
 <!-- Toolbar Menus -->
 <mat-menu #reportsMenu="matMenu" [overlapTrigger]="false">
   <button mat-menu-item [routerLink]="['/reports']" tabindex="0">{{ 'labels.menus.All' | translate }}</button>
   <button mat-menu-item [routerLink]="['/reports', 'Client']" tabindex="0">
-    {{ 'labels.menus.Clients' | translate }}
+    {{ 'Clients' | translate }}
   </button>
   <button mat-menu-item [routerLink]="['/reports', 'Loan']" tabindex="0">{{ 'labels.menus.Loans' | translate }}</button>
   <!-- Savings reports disabled -->
@@ -160,8 +182,9 @@
   </button>
 </mat-menu>
 
-<ng-template #templateInstitution let-popover="popover">
-  <h2>{{ 'labels.menus.Institution' | translate }}</h2>
+<!-- Configuration Wizard Templates -->
+<ng-template #templateClient let-popover="popover">
+  <h2>{{ 'labels.menus.Client' | translate }}</h2>
   <p class="mw300">{{ 'labels.text.Button for individual account' | translate }}</p>
   <div class="layout-row align-end gap-2px responsive-column">
     <button mat-raised-button color="warn" (click)="popover.close(); configurationWizardService.closeConfigWizard()">
@@ -180,7 +203,7 @@
     <button mat-raised-button color="warn" (click)="popover.close(); configurationWizardService.closeConfigWizard()">
       {{ 'labels.buttons.Close' | translate }}
     </button>
-    <button mat-raised-button color="primary" (click)="popover.close(); showPopover(templateInstitution, institution)">
+    <button mat-raised-button color="primary" (click)="popover.close(); showPopover(templateClient, client)">
       {{ 'labels.buttons.Back' | translate }}
     </button>
     <button mat-raised-button color="primary" (click)="popover.close(); showPopover(templateReports, reports)">

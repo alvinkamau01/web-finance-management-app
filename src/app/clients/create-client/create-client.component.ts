@@ -156,14 +156,57 @@ export class CreateClientComponent {
       clientData['datatables'] = datatables;
     }
 
-    this.clientsService.createClient(clientData).subscribe((response: any) => {
-      this.router.navigate(
-        [
-          '../',
-          response.resourceId
-        ],
-        { relativeTo: this.route }
-      );
+    this.clientsService.createClient(clientData).subscribe({
+      next: (response: any) => {
+        console.log('Client creation response:', response);
+
+        // Try different possible ID locations in the response
+        const possibleIdSources = [
+          'resourceId',
+          'id',
+          'clientId',
+          'entityId'
+        ];
+        let clientId: string | null = null;
+
+        // Check top-level properties first
+        for (const source of possibleIdSources) {
+          if (response[source] !== undefined) {
+            clientId = response[source].toString();
+            break;
+          }
+        }
+
+        // If not found at top level, check nested data property
+        if (!clientId && response.data) {
+          for (const source of possibleIdSources) {
+            if (response.data[source] !== undefined) {
+              clientId = response.data[source].toString();
+              break;
+            }
+          }
+        }
+
+        if (clientId) {
+          // Navigate to the newly created client's detail page
+          this.router.navigate(
+            [
+              '../',
+              clientId
+            ],
+            { relativeTo: this.route }
+          );
+        } else {
+          console.error('Client creation succeeded but no client ID found in response');
+          // Fallback: navigate to clients list
+          this.router.navigate(['/clients']);
+        }
+      },
+      error: (error) => {
+        console.error('Failed to create client:', error);
+        // Handle error: navigate back to clients list
+        this.router.navigate(['/clients']);
+      }
     });
   }
 }

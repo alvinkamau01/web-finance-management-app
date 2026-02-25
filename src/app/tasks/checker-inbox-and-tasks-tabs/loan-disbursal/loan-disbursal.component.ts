@@ -88,28 +88,28 @@ export class LoanDisbursalComponent {
    * @param {SettingsService} settingsService Settings Service.
    * @param {TasksService} tasksService Tasks Service.
    */
-   constructor(
-     private route: ActivatedRoute,
-     private dialog: MatDialog,
-     private dateUtils: Dates,
-     private settingsService: SettingsService,
-     private translateService: TranslateService,
-     private tasksService: TasksService,
-     private authenticationService: AuthenticationService,
-     private usersService: UsersService
-   ) {
-     this.route.data.subscribe((data: { loansData: any }) => {
-       this.loans = data.loansData.pageItems;
-       this.loans = this.loans.filter((account: any) => {
-         return account.status.waitingForDisbursal === true;
-       });
-       this.dataSource = new MatTableDataSource(this.loans);
-       this.selection = new SelectionModel(true, []);
-     });
+  constructor(
+    private route: ActivatedRoute,
+    private dialog: MatDialog,
+    private dateUtils: Dates,
+    private settingsService: SettingsService,
+    private translateService: TranslateService,
+    private tasksService: TasksService,
+    private authenticationService: AuthenticationService,
+    private usersService: UsersService
+  ) {
+    this.route.data.subscribe((data: { loansData: any }) => {
+      this.loans = data.loansData.pageItems;
+      this.loans = this.loans.filter((account: any) => {
+        return account.status.waitingForDisbursal === true;
+      });
+      this.dataSource = new MatTableDataSource(this.loans);
+      this.selection = new SelectionModel(true, []);
+    });
 
-     // Get current user data for loan officer filtering
-     this.getCurrentUser();
-   }
+    // Get current user data for loan officer filtering
+    this.getCurrentUser();
+  }
 
   /** Whether the number of selected elements matches the total number of rows. */
   isAllSelected() {
@@ -137,7 +137,9 @@ export class LoanDisbursalComponent {
     const disburseLoanDialogRef = this.dialog.open(ConfirmationDialogComponent, {
       data: {
         heading: this.translateService.instant('labels.heading.Loan Disbursal and B2C Transfer'),
-        dialogContext: this.translateService.instant('labels.dialogContext.Are you sure you want to Disburse Loan and initiate M-Pesa B2C transfer?')
+        dialogContext: this.translateService.instant(
+          'labels.dialogContext.Are you sure you want to Disburse Loan and initiate M-Pesa B2C transfer?'
+        )
       }
     });
     disburseLoanDialogRef.afterClosed().subscribe((response: { confirm: any }) => {
@@ -217,7 +219,9 @@ export class LoanDisbursalComponent {
         },
         error: (error: any) => {
           console.error('ph-ee B2C transfer failed for loan', loan.id, error);
-          this.transferMessages.push(`B2C Transfer failed for loan ${loan.id} (${loan.clientName}): ${error.message || 'Unknown error'}`);
+          this.transferMessages.push(
+            `B2C Transfer failed for loan ${loan.id} (${loan.clientName}): ${error.message || 'Unknown error'}`
+          );
           completedTransfers++;
           if (completedTransfers === totalTransfers) {
             this.isDisbursing = false;
@@ -230,7 +234,8 @@ export class LoanDisbursalComponent {
 
   loanResource() {
     // Pass staff ID for loan officers to filter loans server-side
-    const staffId = this.isLoanOfficer && this.currentUser && this.currentUser.staff ? this.currentUser.staff.id : undefined;
+    const staffId =
+      this.isLoanOfficer && this.currentUser && this.currentUser.staff ? this.currentUser.staff.id : undefined;
     this.tasksService.getAllLoansToBeDisbursed(staffId).subscribe((response: any) => {
       this.loans = response.pageItems;
       this.loans = this.loans.filter((account: any) => {

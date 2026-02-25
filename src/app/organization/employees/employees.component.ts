@@ -60,6 +60,7 @@ export class EmployeesComponent implements OnInit, AfterViewInit {
   displayedColumns: string[] = [
     'displayName',
     'isLoanOfficer',
+    'isAccountant',
     'officeName',
     'isActive'
   ];
@@ -123,7 +124,9 @@ export class EmployeesComponent implements OnInit, AfterViewInit {
     // Debug logs for isLoanOfficer
     console.log('Employees data:', this.employeesData);
     this.employeesData.forEach((employee: any) => {
-      console.log(`Employee ${employee.displayName}: isLoanOfficer = ${employee.isLoanOfficer}, type = ${typeof employee.isLoanOfficer}`);
+      console.log(
+        `Employee ${employee.displayName}: isLoanOfficer = ${employee.isLoanOfficer}, type = ${typeof employee.isLoanOfficer}`
+      );
     });
   }
 

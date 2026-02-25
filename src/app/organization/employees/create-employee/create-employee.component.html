@@ -46,6 +46,10 @@
             {{ 'labels.inputs.Is Loan Officer' | translate }}
           </mat-checkbox>
 
+          <mat-checkbox labelPosition="before" formControlName="isAccountant" class="accountant">
+            {{ 'labels.inputs.Is Accountant' | translate }}
+          </mat-checkbox>
+
           <mat-form-field>
             <mat-label>{{ 'labels.inputs.Mobile Number for SMS' | translate }}</mat-label>
             <input matInput formControlName="mobileNo" />

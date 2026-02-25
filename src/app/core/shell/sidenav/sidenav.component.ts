@@ -88,6 +88,14 @@ export class SidenavComponent implements OnInit, AfterViewInit {
   }
 
   /**
+   * Checks if current user is an accountant
+   */
+  get isAccountant(): boolean {
+    const user = this.authenticationService.getUser();
+    return user && user.isAccountant === true;
+  }
+
+  /**
    * Sets the username of the authenticated user.
    */
   ngOnInit() {

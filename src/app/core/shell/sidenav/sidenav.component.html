@@ -7,7 +7,7 @@
   <div class="navigation-panel layout-column">
     <!-- TODO: Allow customization by organization -->
     <div class="app-brand" [routerLink]="['/home']">
-      <img src="assets/images/MifosX_logo.png" alt="app-logo" class="app-logo" />
+      <img src="assets/images/EverpressX_logo.png" alt="app-logo" class="app-logo" />
       <span #logo class="app-logo-text text-muted">{{ 'APP_NAME' | translate }}</span>
     </div>
 
@@ -154,7 +154,8 @@
           </mat-icon>
           <a matLine #chartOfAccounts>{{ 'labels.menus.Chart of Accounts' | translate }}</a>
         </mat-list-item>
-        <mat-list-item
+        <!-- Commented out Keyboard Shortcuts and Help menu items -->
+        <!-- <mat-list-item
           (click)="showKeyboardShortcuts()"
           [matTooltipPosition]="tooltipPosition"
           matTooltip="{{ 'tooltips.Keyboard Shortcuts' | translate }}"
@@ -169,7 +170,7 @@
             <fa-icon icon="question-circle" size="sm"></fa-icon>
           </mat-icon>
           <a matLine>{{ 'labels.menus.Help' | translate }}</a>
-        </mat-list-item>
+        </mat-list-item> -->
       </mat-nav-list>
     </div>
   </div>

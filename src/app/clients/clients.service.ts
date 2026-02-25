@@ -392,7 +392,14 @@ export class ClientsService {
     return this.http.get(`/clients/${clientId}/collaterals/template`);
   }
 
-  searchByText(text: string, page: number, pageSize: number, sortAttribute: string = '', sortDirection: string = '', staffId?: number) {
+  searchByText(
+    text: string,
+    page: number,
+    pageSize: number,
+    sortAttribute: string = '',
+    sortDirection: string = '',
+    staffId?: number
+  ) {
     let request: any = {
       request: {
         text

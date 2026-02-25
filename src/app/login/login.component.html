@@ -9,8 +9,7 @@
     This content will be hidden for smaller screens.
   -->
 
-  <div class="flex-70 layout-column align-center align-items-center hide-lt-sm cover">
-  </div>
+  <div class="flex-70 layout-column align-center align-items-center hide-lt-sm cover"></div>
 
   <!--
     Content in 30%: (TODO: Allow customization of Name, Logo and Contact Information by organization)
@@ -29,8 +28,11 @@
 
     <!-- Logo with Organization Name -->
     <div class="layout-row align-center-center flex-auto">
-      <img src="assets/images/mifos_lg-logo.png" alt="{{ 'APP_NAME' | translate }} Logo" class="img-container" />
+      <img src="assets/images/Everpress_lg-logo.png" alt="{{ 'APP_NAME' | translate }} Logo" class="img-container" />
     </div>
+
+    <!-- Server Selector -->
+    <mifosx-server-selector></mifosx-server-selector>
 
     <!-- Tenant Identifier Name -->
     <mifosx-tenant-selector *ngIf="displayTenantSelector()"></mifosx-tenant-selector>
@@ -48,7 +50,5 @@
       <mifosx-reset-password *ngIf="resetPassword"></mifosx-reset-password>
       <mifosx-two-factor-authentication *ngIf="twoFactorAuthenticationRequired"></mifosx-two-factor-authentication>
     </div>
-
   </div>
 </div>
-

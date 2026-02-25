@@ -130,16 +130,24 @@ export class ToolbarComponent implements OnInit, AfterViewInit, AfterContentChec
     const savedCredentials = this.authenticationService.getCredentials();
     const permissions = savedCredentials.permissions || [];
 
+    // Check if user is explicitly marked as accountant
+    if (savedCredentials.isAccountant === true) {
+      this.userRole = 'accountant';
+    }
     // Check for admin permissions
-    if (permissions.includes('ALL_FUNCTIONS') ||
-        permissions.includes('READ_USER') ||
-        permissions.includes('CREATE_USER')) {
+    else if (
+      permissions.includes('ALL_FUNCTIONS') ||
+      permissions.includes('READ_USER') ||
+      permissions.includes('CREATE_USER')
+    ) {
       this.userRole = 'admin';
     }
     // Check for accountant permissions
-    else if (permissions.includes('READ_JOURNALENTRY') ||
-             permissions.includes('CREATE_JOURNALENTRY') ||
-             permissions.includes('READ_GLACCOUNT')) {
+    else if (
+      permissions.includes('READ_JOURNALENTRY') ||
+      permissions.includes('CREATE_JOURNALENTRY') ||
+      permissions.includes('READ_GLACCOUNT')
+    ) {
       this.userRole = 'accountant';
     }
     // Default to loan officer (most restrictive)

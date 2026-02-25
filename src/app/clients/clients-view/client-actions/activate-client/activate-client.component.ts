@@ -39,27 +39,27 @@ export class ActivateClientComponent implements OnInit {
   isLoanOfficer = false;
 
   /**
-    * @param {FormBuilder} formBuilder Form Builder
-    * @param {clientsService} clientsService Cliens Service
-    * @param {AuthenticationService} authenticationService Authentication Service
-    * @param {UsersService} usersService Users Service
-    * @param {Dates} dateUtils Date Utils
-    * @param {ActivatedRoute} route Activated Route
-    * @param {Router} router Router
-    * @param {SettingsService} settingsService Settings Service
-    */
-   constructor(
-     private formBuilder: UntypedFormBuilder,
-     private clientsService: ClientsService,
-     private authenticationService: AuthenticationService,
-     private usersService: UsersService,
-     private dateUtils: Dates,
-     private route: ActivatedRoute,
-     private router: Router,
-     private settingsService: SettingsService
-   ) {
-     this.clientId = this.route.parent.snapshot.params['clientId'];
-   }
+   * @param {FormBuilder} formBuilder Form Builder
+   * @param {clientsService} clientsService Cliens Service
+   * @param {AuthenticationService} authenticationService Authentication Service
+   * @param {UsersService} usersService Users Service
+   * @param {Dates} dateUtils Date Utils
+   * @param {ActivatedRoute} route Activated Route
+   * @param {Router} router Router
+   * @param {SettingsService} settingsService Settings Service
+   */
+  constructor(
+    private formBuilder: UntypedFormBuilder,
+    private clientsService: ClientsService,
+    private authenticationService: AuthenticationService,
+    private usersService: UsersService,
+    private dateUtils: Dates,
+    private route: ActivatedRoute,
+    private router: Router,
+    private settingsService: SettingsService
+  ) {
+    this.clientId = this.route.parent.snapshot.params['clientId'];
+  }
 
   /**
    * Creates the activate client form and fetches user and client data.
@@ -108,7 +108,13 @@ export class ActivateClientComponent implements OnInit {
    * if successful redirects to the client.
    */
   submit() {
-    if (this.isLoanOfficer && this.clientData && this.currentUser && this.currentUser.staff && this.clientData.staffId !== this.currentUser.staff.id) {
+    if (
+      this.isLoanOfficer &&
+      this.clientData &&
+      this.currentUser &&
+      this.currentUser.staff &&
+      this.clientData.staffId !== this.currentUser.staff.id
+    ) {
       alert('You can only activate clients assigned to you.');
       return;
     }
@@ -125,11 +131,14 @@ export class ActivateClientComponent implements OnInit {
       locale
     };
     console.log('Activating client with data:', data);
-    this.clientsService.executeClientCommand(this.clientId, 'activate', data).subscribe(() => {
-      this.router.navigate(['../../'], { relativeTo: this.route });
-    }, (error: any) => {
-      console.error('Error activating client:', error);
-      alert('Failed to activate client: ' + (error.error?.defaultUserMessage || error.message || 'Unknown error'));
-    });
+    this.clientsService.executeClientCommand(this.clientId, 'activate', data).subscribe(
+      () => {
+        this.router.navigate(['../../'], { relativeTo: this.route });
+      },
+      (error: any) => {
+        console.error('Error activating client:', error);
+        alert('Failed to activate client: ' + (error.error?.defaultUserMessage || error.message || 'Unknown error'));
+      }
+    );
   }
 }

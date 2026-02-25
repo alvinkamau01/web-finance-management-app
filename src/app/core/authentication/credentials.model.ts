@@ -6,6 +6,7 @@ export interface Credentials {
   authenticated: boolean;
   base64EncodedAuthenticationKey?: string;
   isTwoFactorAuthenticationRequired?: boolean;
+  isAccountant?: boolean;
   officeId: number;
   officeName: string;
   staffId?: number;
