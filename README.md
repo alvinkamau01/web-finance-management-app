@@ -1,8 +1,8 @@
-# Orion ![build](https://github.com/openMF/web-app/actions/workflows/build.yml/badge.svg)
+# Everpress ![build](https://github.com/openMF/web-app/actions/workflows/build.yml/badge.svg)
 
 ## Overview
 
-Orion is a comprehensive microfinance management platform designed for SACCOs, banks, and business-focused financial institutions. It provides robust tools for loan management, client operations, and financial services, built on top of the Fineract platform.
+Everpress is a comprehensive microfinance management platform designed for SACCOs, banks, and business-focused financial institutions. It provides robust tools for loan management, client operations, and financial services, built on top of the Fineract platform.
 
 **Technologies Used:**
 
@@ -95,7 +95,7 @@ Choose ONE of the following methods to install the web app:
 
 #### Method 3: Docker Compose (Frontend + Backend)
 
-This sets up both the Orion Web App and Fineract backend:
+This sets up both the Everpress Web App and Fineract backend:
 
 1. Clone the repository:
    ```
@@ -193,7 +193,7 @@ For more detailed configuration options, refer to the `env.sample` file in the r
 
 ### 1.0.0 (Tag: 1.0.0-fineract1.11)
 
-This is the first official release of the Orion web application:
+This is the first official release of the Everpress web application:
 
 - Developed for Fineract 1.11
 - No Self Service area

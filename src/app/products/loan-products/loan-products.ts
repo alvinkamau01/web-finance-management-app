@@ -73,9 +73,9 @@ export class LoanProducts {
     delete loanProduct.allowAttributeConfiguration;
     delete loanProduct.advancedAccountingRules;
 
-    // In Fineract, the POST and PUT endpoints for /v1/loanproducts have a typo in the field
-    // allowPartialPeriodInterestCalculation. Until that is fixed, we need to replace the field name in the payload.
-    loanProduct.allowPartialPeriodInterestCalcualtion = loanProduct.allowPartialPeriodInterestCalculation;
+    // Note: The field allowPartialPeriodInterestCalculation might not be supported in older Fineract versions.
+    // To avoid errors, we remove this field from the payload. If the backend supports it,
+    // this can be re-enabled with the correct field name for the Fineract version in use.
     delete loanProduct.allowPartialPeriodInterestCalculation;
 
     // Set Default values If they were not set

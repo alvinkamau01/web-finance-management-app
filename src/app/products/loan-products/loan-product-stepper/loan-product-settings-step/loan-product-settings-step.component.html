@@ -58,16 +58,6 @@
       {{ 'labels.inputs.products.loan.Is Equal Amortization?' | translate }}
     </mat-checkbox>
 
-    <mat-checkbox
-      *ngIf="loanProductSettingsForm.value.interestCalculationPeriodType === 1"
-      class="flex-96"
-      labelPosition="before"
-      matTooltip="{{ 'tooltips.To be used with SAME AS REPAYMENT PERIOD' | translate }}"
-      formControlName="allowPartialPeriodInterestCalculation"
-    >
-      {{ 'labels.inputs.Calculate interest for exact days in partial period' | translate }}
-    </mat-checkbox>
-
     <mat-divider class="flex-98"></mat-divider>
 
     <h4 class="mat-h4 flex-98">{{ 'labels.inputs.Loan Schedule' | translate }}</h4>

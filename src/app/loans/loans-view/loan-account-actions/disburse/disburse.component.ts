@@ -8,6 +8,7 @@ import {
   ReactiveFormsModule
 } from '@angular/forms';
 import { ActivatedRoute, Router, RouterLink } from '@angular/router';
+import { HttpClient } from '@angular/common/http';
 
 /** Custom Services */
 import { LoansService } from 'app/loans/loans.service';
@@ -49,12 +50,16 @@ export class DisburseComponent implements OnInit {
   disbursementLoanForm: UntypedFormGroup;
   currency: Currency;
 
+  /** Webhook URL for disbursement notification */
+  private readonly WEBHOOK_URL = 'http://localhost:5678/webhook-test/d27debd6-bc5b-4165-9df0-03ddcecd7d00';
+
   /**
    * @param {FormBuilder} formBuilder Form Builder.
    * @param {LoansService} loanService Loan Service.
    * @param {ActivatedRoute} route Activated Route.
    * @param {Router} router Router for navigation.
    * @param {SettingsService} settingsService Settings Service
+   * @param {HttpClient} http Http Client for webhook calls
    */
   constructor(
     private formBuilder: UntypedFormBuilder,
@@ -62,7 +67,8 @@ export class DisburseComponent implements OnInit {
     private route: ActivatedRoute,
     private router: Router,
     private dateUtils: Dates,
-    private settingsService: SettingsService
+    private settingsService: SettingsService,
+    private http: HttpClient
   ) {
     this.loanId = this.route.snapshot.params['loanId'];
   }
@@ -146,6 +152,17 @@ export class DisburseComponent implements OnInit {
     };
     data['transactionAmount'] = data['transactionAmount'] * 1;
     this.loanService.loanActionButtons(this.loanId, 'disburse', data).subscribe((response: any) => {
+      // Post to webhook after successful disbursement
+      const webhookData = {
+        loanId: this.loanId,
+        disbursementData: data,
+        response: response,
+        timestamp: new Date().toISOString()
+      };
+      this.http.post(this.WEBHOOK_URL, webhookData).subscribe({
+        next: () => console.log('Webhook notification sent successfully'),
+        error: (err) => console.error('Webhook notification failed:', err)
+      });
       this.router.navigate(['../../general'], { relativeTo: this.route });
     });
   }

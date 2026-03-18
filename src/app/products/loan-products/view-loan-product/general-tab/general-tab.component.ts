@@ -98,7 +98,6 @@ export class GeneralTabComponent implements OnInit {
         productCopy['currencyCode'] = productCopy['currency'] ? productCopy['currency']['code'] : null;
         productCopy['interestRatePerPeriod'] = productCopy['annualInterestRate'];
         productCopy['transactionProcessingStrategyCode'] = productCopy['transactionProcessingStrategyName'];
-        productCopy['allowPartialPeriodInterestCalculation'] = productCopy['allowPartialPeriodInterestCalculation'];
         productCopy['locale'] = this.settingsService.language.code;
 
         let valueTmp: any = productCopy['daysInMonthType']['value'];
@@ -121,6 +120,7 @@ export class GeneralTabComponent implements OnInit {
         delete productCopy['isRatesEnabled'];
         delete productCopy['annualInterestRate'];
         delete productCopy['transactionProcessingStrategyName'];
+        // Remove field not supported by older Fineract versions
         delete productCopy['allowPartialPeriodInterestCalculation'];
         delete productCopy['advancedPaymentAllocationFutureInstallmentAllocationRules'];
 
