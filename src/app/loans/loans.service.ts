@@ -671,8 +671,6 @@ export class LoansService {
     delete loansAccountData.principalAmount;
     delete loansAccountData.multiDisburseLoan; // this was just added so that disbursement data can be send in the backend
 
-    // Remove allowPartialPeriodInterestCalculation as it may not be supported by all Fineract versions
-    delete loansAccountData.allowPartialPeriodInterestCalculation;
     return loansAccountData;
   }
 
